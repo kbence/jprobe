@@ -1,0 +1,30 @@
+apply plugin: 'groovy'
+apply plugin: 'application'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile module('org.codehaus.groovy:groovy-all:2.4.1')
+}
+
+mainClassName = 'jprobe.JProbe'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+task fatJar(type: Jar) {
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+
+    baseName = project.name + '-all'
+
+    manifest {
+        attributes 'Implementation-Title': 'JProbe',
+                'Implementation-Version': '0.0.1',
+                'Main-Class': 'jprobe.JProbe'
+    }
+}
+
