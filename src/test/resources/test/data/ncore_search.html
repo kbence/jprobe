@@ -1,0 +1,1435 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="hu">
+    <link rel="icon" href="https://static.ncore.cc/styles/ncore.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="https://static.ncore.cc/styles/ncore.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://static.ncore.cc/styles/ncold/style_sslv11.css" type="text/css">
+    <link rel="alternate" href="/rss/rss.xml" type="application/rss+xml" title="nCORE Torrentek">
+    <link rel="alternate" href="/rss/rssdd.xml" type="application/rss+xml" title="nCORE Torrentek Közvetlen Letöltéssel">
+    <title>nCore | Letöltés</title>
+    <!--[if lt IE 7.]>
+    <script defer type="text/javascript" src="https://static.ncore.cc/static/js/pngfix.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="https://static.ncore.cc/static/js/fancybox/fancybox.css" type="text/css">
+    <script language="JavaScript" type="text/javascript" src="https://static.ncore.cc/static/js/jquery_stuff.js?v=1"></script>
+    <script language="JavaScript" type="text/javascript" src="https://static.ncore.cc/static/js/ncorev12.js?v=1"></script>
+</head>
+<body>
+<div style="position:fixed;left:10px;bottom:10px;z-index:2000;" id="ape-container"></div>
+<script type="text/javaScript" src="https://static.ncore.cc/static/js/push.js"></script>
+<script type="text/javaScript">
+		var myCats = ["xvid_hun","xvid","dvd_hun","dvd","dvd9_hun","dvd9","hd_hun","hd","xvidser_hun","xvidser","dvdser_hun","dvdser","hdser_hun","hdser","xxx_xvid","xxx_dvd","xxx_imageset","xxx_hd","mp3_hun","mp3","lossless_hun","lossless","clip","game_iso","game_rip","console","ebook_hun","ebook","iso","misc","mobil"];
+		var catsName = {"xvid_hun":"Film XviD\/HU","xvid":"Film XviD\/EN","dvd_hun":"Film DVDR\/HU","dvd":"Film DVDR\/EN","dvd9_hun":"Film DVD9\/HU","dvd9":"Film DVD9\/EN","hd_hun":"Film HD\/HU","hd":"Film HD\/EN","xvidser_hun":"Sorozat XviD\/HU","xvidser":"Sorozat XviD\/EN","dvdser_hun":"Sorozat DVDR\/HU","dvdser":"Sorozat DVDR\/EN","hdser_hun":"Sorozat HD\/HU","hdser":"Sorozat HD\/EN","mp3_hun":"MP3\/HU","mp3":"MP3\/EN","lossless_hun":"Lossless\/HU","lossless":"Lossless\/EN","clip":"Klip","game_iso":"J\u00e1t\u00e9k PC\/ISO","game_rip":"J\u00e1t\u00e9k PC\/RIP","console":"Konzol","ebook_hun":"eBook\/HU","ebook":"eBook\/EN","iso":"APP\/ISO","misc":"APP\/RIP","mobil":"APP\/Mobil","xxx_xvid":"XXX XviD","xxx_dvd":"XXX DVDR\/DVD9","xxx_imageset":"XXX Imageset","xxx_hd":"XXX HD"};
+		function stripslashes (str) {
+			return (str + '').replace(/\\(.?)/g, function (s, n1) {switch (n1){case '\\':return '\\';case '0':return '\u0000';case '':return '';default:return n1;}});
+		}
+		// <![CDATA[
+		function messageReceived(text, id, channel) {
+			var d=$.parseJSON(text);
+			var pid = d.id;
+			var pcat = d.cat;
+			var pname = stripslashes(decodeURIComponent(d.name));
+			pname = pname.replace(/\+/g," ",pname);
+			if($.inArray(pcat, myCats)>=0){
+				$("#ape-container").prepend('<div id="apeT'+pid+'" class="ape-popup"><span class="comment">Új torrent!</span><span onclick="$(\'#apeT'+pid+'\').fadeOut(\'slow\', function(){$(\'#apeT'+pid+'\').remove()});" class="ape-close">X</span><br /><a href="/torrents.php?action=details&id='+pid+'">' + pname + '</a><br /><span class="comment">' + catsName[pcat] + '</span></div>');
+				setInterval("$(\'#apeT"+pid+"\').fadeOut(\'slow\', function(){$(\'#apeT"+pid+"\').remove()});", 15000);
+			}
+		};
+		var pushstream = new PushStream({
+			host: 'push.ncore.cc',
+			port: window.location.port,
+			useSSL: true,
+			modes: "websocket|eventsource|longpolling",
+			longPollingByHeaders: false,
+			longPollingTagArgument: 'tag',
+			longPollingTimeArgument: 'time',
+			longPollingUseJSONP: false,
+			longPollingTimeout: 30000
+		});
+		pushstream.onmessage = messageReceived;
+		pushstream.addChannel('live_torrents');
+		pushstream.connect();
+
+		// ]]>
+	</script>
+<div id="container">
+    <div id="container_in">
+        <div id="div_body">
+            <div id="fej_csik_felso"></div>
+            <div id="fej_fejlec_bg"><div id="fej_fejlec"></div></div>
+            <div id="menu_bg">
+                <div id="menu_all">
+                    <div id="menu_left"></div>
+                    <div id="menu_center" >
+                        <a href="index.php" title="Új hír!"><div class="topnews_alert">!</div></a>
+                        <div class="menu_arrow"></div>
+                        <div class="menu_text"><a href="index.php" id="menu_1" class="menu_link">Főoldal</a></div>
+                        <div class="menu_arrow"></div>
+                        <div class="menu_text"><a href="torrents.php" id="menu_2" class="menu_link">Letöltés</a></div>
+                        <div class="menu_arrow"></div>
+                        <div class="menu_text"><a href="upload.php" id="menu_3" class="menu_link">Feltöltés</a></div>
+                        <div class="menu_arrow"></div>
+                        <div class="menu_text"><a href="requests.php" id="menu_4"  class="menu_link">Kérések</a></div>
+                        <div class="menu_arrow"></div>
+                        <div class="menu_text"><a href="recommended.php" id="menu_5" class="menu_link">Ajánló</a></div>
+                        <div class="menu_arrow"></div>
+                        <div class="menu_text"><a href="forum.php" id="menu_6" class="menu_link">Fórum</a></div>
+                        <div class="menu_arrow"></div>
+                        <div class="menu_text"><a href="wiki.php" id="menu_7" class="menu_link">Wiki</a></div>
+                        <div class="menu_arrow"></div>
+                        <div class="menu_text"><a href="users.php" id="menu_8" class="menu_link">Felhasználók</a></div>
+                        <div class="menu_arrow"></div>
+                        <div class="menu_text"><a href="helpdesk.php" id="menu_9" class="menu_link">HelpDesk</a></div>
+                        <div class="menu_arrow"></div>
+                        <div class="menu_text"><a href="exit.php?q=eb47fdd538f0f23694d36bf82e408870" id="menu_11" class="menu_link">Kilépés</a></div>
+                    </div>
+                    <div id="menu_right"></div>
+                </div>
+            </div>
+            <div id="infosav">
+                <div class="infosav_l"></div>
+                <div class="infosav_c">
+                    <div id="infosav_adatok">
+                        <a href="profile.php">csunyagyerek</a>
+                        (Elite),
+                        Pontok: <a href="wiki.php?action=read&id=33">6465</a>
+                        Fel: <span class="list_alert">15.11 TB</span>
+                        Helyezés:
+                        <a class="list_alert" href="wiki.php?action=read&id=581">30415</a>.
+                        [<a class="list_alert" href="hitnrun.php">Aktivitás</a>]
+                        [<a class="premium" href="premium.php">Prémium</a>]
+                    </div>
+                    <div id="infosav_extra">
+                        <div id="i_e_log"><a href="log.php" title="Torrentek naplózása"><img src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="i_e_link"></a></div>
+                        <div class="i_e_vonal"></div>
+                        <div id="i_e_baratok"><a href="profile.php?action=friends" title="Barátok"><img src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="i_e_link"></a></div>
+                        <div class="i_e_vonal"></div>
+                        <div id="i_e_konyvjelzo"><a id="konyvjelzo" href="bookmarks.php" title="Könyvjelző"><img src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="i_e_link"></a></div>
+                        <div class="i_e_vonal"></div>
+                        <div id="i_e_beallitasok"><a href="profile.php?action=config" title="Profil beállítása"><img src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="i_e_link"></a></div>
+                        <div class="i_e_vonal"></div>
+                        <div id="i_e_level"><a href="inbox.php" title="Üzeneteim"><img src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="i_e_link"></a></div>
+                        <div class="i_e_vonal"></div>
+                        <div id="i_e_meghivo"><a href="invite.php" title="Meghívó"><img src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="i_e_link"></a></div>
+                    </div>
+                </div>
+                <div class="infosav_r"></div>
+            </div>
+            <div id="main_all">
+                <div id="main">
+                    <div class="infocsik" style="background:#BB0000;"><a href="index.php" style="color:#fff;">Új hír van a főoldalon!</a></div>
+                    <div id="main_tartalom">
+                        <script type="text/javascript">
+	var ks=true;
+	$(document).ready(function() {
+		/*$("#upperad").load("http://yayo.hu/api/banner/900");*/
+//		$("#bottomad").load("http://yayo.hu/api/banner/900");
+		var inputFocused = false;
+		$('input').focusin(function() {
+			inputFocused = true;
+		});
+		$('input').focusout(function() {
+			inputFocused = false;
+		});
+		$(this).keydown(function(e) {
+			if($('#pPa').length > 0 && e.keyCode == 37 && ks && !inputFocused && $(document).scrollLeft() == 0) {
+				window.location = $('#pPa').attr('href');
+			} else if ($('#nPa').length > 0 && e.keyCode == 39 && ks && !inputFocused && ($(document).scrollLeft() + $(window).width()) == $(document).width()) {
+				window.location = $('#nPa').attr('href');
+			}
+		});
+	});
+	function fads() {
+		return '';
+	}
+	function disableKeys(){
+		ks=false;
+	}
+	function enableKeys(){
+		ks=true;
+	}
+	function torrent(id) {
+		var e = $('#'+id);
+		var loading = '<div class="torrent_lenyilo_lehetoseg"><div class="lehetosegek">Lehetőségeid:</div><div class="letoltve"><a href="torrents.php?action=download&id='+id+'"><img src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="torr_reszletek_btn"></a></div><div class="letoltve_txt"><a href="torrents.php?action=download&id='+id+'">Torrent letöltése</a></div></div><div class="torrent_lenyilo_tartalom"><div style="margin:10px 0;text-align:center"><img src="https://static.ncore.cc/styles/ajax.gif" title="Töltés..."></div></div><div class="torrent_lenyilo_lab"></div>';
+        if (!e.html() || e.html()==loading) {
+			e.html(loading);
+			e.toggle(0);
+			$.get('ajax.php?action=torrent_drop&id='+id,function(data) {e.html(data); BannerEventHandler.init();$('#'+id+' .fancy_groups').fancybox({'onStart':disableKeys,'onClosed':enableKeys});});
+		} else
+			e.toggle(0);
+	}
+	function parosKlikk(id) {
+		return true;
+	}
+	function nCoreKep(cim, meretek) {
+		var url = cim;
+		var meret = meretek.split("x",2);
+		var width = ( (parseInt(meret[0])+25) > 455 ? (parseInt(meret[0])+25) : 455 );
+		var height = parseInt(meret[1])+170;
+		window.open('/showimage.php?link='+url,'_blank','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+width+', height='+height );
+	}
+	function keresestMutat(type) {
+		var dom_nyit = document.getElementById('panel_stuff');
+		var dom_resz = document.getElementById('kategoriak');
+		if (type==1) {
+			dom_nyit.className = "panel_closed";
+			dom_resz.style.display = "block";
+			return true;
+		}
+		dom_nyit.className = dom_nyit.className == "panel_closed" ? "panel_open" : "panel_closed" ;
+		dom_resz.style.display = dom_resz.style.display == "none" ? "block" : "none" ;
+		if (dom_resz.style.display == 'none') document.getElementById('cimkek_lista').style.display = 'none';
+	}
+	function lenyitKereso(id) {
+		var dom_lenyit = document.getElementById(id);
+		if (!dom_lenyit) return false;
+		dom_lenyit.style.display = dom_lenyit.style.display == "none" ? "block" : "none" ;
+		if (dom_lenyit.style.display == 'none') {
+			var inner_tags = dom_lenyit.getElementsByTagName('input');
+			for (i=0; i<inner_tags.length; i++) {
+				inner_tags[i].checked = false;
+			}
+		}
+	}
+	function markAll(id) {
+		var holder = document.getElementById(id);
+		if (!holder) return false;
+		var inner_tags = holder.getElementsByTagName('input');
+		for (i=0; i<inner_tags.length; i++) {
+			inner_tags[i].checked = inner_tags[i].checked==true?false:true;
+		}
+		tipust_valt();
+	}
+	function tipust_valt() {
+		var list = document.getElementById('listazasi_tipus');
+		list.selectedIndex = 2;
+	}
+	function nevHosszEllenorzes() {
+		if (document.kereses_mezo.mire.value && document.kereses_mezo.mire.value.length < 3) {
+			alert("FIGYELMEZTETÉS!\r\n\r\nA keresendő: '"+document.kereses_mezo.mire.value+"' rövidebb, mint 3 karakter hosszú!\r\n\r\nA keresés nem folytatódik, írj be hosszabb nevet!");
+			return false;
+		} else {
+			return true;
+		}
+	}
+	function showTags() {
+		if (document.getElementById('cimkek_lista').style.display == 'none') {
+			document.getElementById('cimkek_lista').style.display = '';
+			document.getElementById('cimke_text').innerHTML = '[címkék elrejtése]';
+		} else {
+			document.getElementById('cimkek_lista').style.display = 'none';
+			document.getElementById('cimke_text').innerHTML = '[címkék mutatása]';
+		}
+	}
+	function addTag(mit) {
+		var added = document.getElementById('tags').value.toLowerCase();
+		var matchRe = new RegExp(mit.toLowerCase());
+		if (matchRe.test(added)) return false;
+		document.getElementById('tags').value = document.getElementById('tags').value.replace(/,[ ]*$/, '');
+		document.getElementById('tags').value += (added?', ':'')+mit;
+		return true;
+	}
+</script>
+                        <div class="fobox_all" id="torrents1">
+                            <div class="fobox_fej_t"></div>
+                            <div class="fobox_fej"><span id="torrents1_txt">Kereső & Lapozó</span></div>
+                            <div class="fobox_fej_b"></div>
+                            <div class="fobox_tartalom_t"></div>
+                            <div class="fobox_tartalom">
+                                <div style="display:none;" id="kategoriak">
+                                    <form method="post" action="/torrents.php" id="kereses_mezo" name="kereses_mezo" onsubmit="return nevHosszEllenorzes();">
+                                        <table width="720" id="table_torrcat">
+                                            <tr>
+                                                <td width="20"><input type="checkbox" onclick="lenyitKereso('filmek_resz');" name="nyit_filmek_resz" value="true"></td>
+                                                <td width="60"><a href="/torrents.php?csoport_listazas=osszes_film">Film</a></td>
+                                                <td width="20"><input type="checkbox" onclick="lenyitKereso('sorozat_resz');" name="nyit_sorozat_resz" value="true"></td>
+                                                <td width="60"><a href="/torrents.php?csoport_listazas=osszes_sorozat">Sorozat</a></td>
+                                                <td width="20"><input type="checkbox" onclick="lenyitKereso('zene_resz');" name="nyit_zene_resz" value="true"></td>
+                                                <td width="60"><a href="/torrents.php?csoport_listazas=osszes_zene">Zene</a></td>
+                                                <td width="20"><input type="checkbox" onclick="lenyitKereso('xxx_resz');" name="nyit_xxx_resz" value="true"></td>
+                                                <td width="60"><a href="/torrents.php?csoport_listazas=osszes_xxx">XXX</a></td>
+                                                <td width="20"><input type="checkbox" onclick="lenyitKereso('jatek_resz');" name="nyit_jatek_resz" value="true"></td>
+                                                <td width="60"><a href="/torrents.php?csoport_listazas=osszes_jatek">Játék</a></td>
+                                                <td width="20"><input type="checkbox" onclick="lenyitKereso('prg_resz');" name="nyit_prog_resz" value="true"></td>
+                                                <td width="60"><a href="/torrents.php?csoport_listazas=osszes_program">Program</a></td>
+                                                <td width="20"><input type="checkbox" onclick="lenyitKereso('konyv_resz');" name="nyit_konyv_resz" value="true"></td>
+                                                <td width="60"><a href="/torrents.php?csoport_listazas=osszes_konyv">Könyv</a></td>
+                                            </tr>
+                                        </table>
+                                        <div style="display:none;width:840;" id="filmek_resz">
+                                            <table width="840" border="0" cellspacing="0" cellpadding="0">
+                                                <tr><td width="80"><a href="javascript:markAll('filmek_resz');">Film</a>:</td>
+                                                    <td width="20"><input name="kivalasztott_tipus[]" id="check_xvid_hun" type="checkbox" onclick="tipust_valt();" value="xvid_hun"></td><td width="75"><a title="Filmek tömörített formátumban, magyarul (DivX, XviD)." href="/torrents.php?tipus=xvid_hun">XviD/HU</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_xvid" type="checkbox" onclick="tipust_valt();" value="xvid"></td><td width="75"><a title="Filmek tömörített formátumban, angolul (DivX, XviD)." href="/torrents.php?tipus=xvid">XviD/EN</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_dvd_hun" type="checkbox" onclick="tipust_valt();" value="dvd_hun"></td><td width="75"><a title="Filmek DVD-n, magyarul." href="/torrents.php?tipus=dvd_hun">DVDR/HU</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_dvd" type="checkbox" onclick="tipust_valt();" value="dvd"></td><td width="75"><a title="Filmek DVD-n, angolul." href="/torrents.php?tipus=dvd">DVDR/EN</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_dvd9_hun" type="checkbox" onclick="tipust_valt();" value="dvd9_hun"></td><td width="75"><a title="Filmek DVD9 formátumban magyarul." href="/torrents.php?tipus=dvd9_hun">DVD9/HU</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_dvd9" type="checkbox" onclick="tipust_valt();" value="dvd9"></td><td width="75"><a title="Filmek DVD9 formátumban angolul." href="/torrents.php?tipus=dvd9">DVD9/EN</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_hd_hun" type="checkbox" onclick="tipust_valt();" value="hd_hun"></td><td width="75"><a title="Nagyfelbontású filmek HD-n, magyarul." href="/torrents.php?tipus=hd_hun">HD/HU</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_hd" type="checkbox" onclick="tipust_valt();" value="hd"></td><td width="75"><a title="Nagyfelbontású filmek HD-n, angolul." href="/torrents.php?tipus=hd">HD/EN</a></td>	</tr></table></div>
+                                        <div style="display:none;width:840;" id="sorozat_resz">
+                                            <table width="840" border="0" cellspacing="0" cellpadding="0">
+                                                <tr><td width="80"><a href="javascript:void(0);" onclick="markAll('sorozat_resz');">Sorozat</a>:</td>
+                                                    <td width="20"><input name="kivalasztott_tipus[]" id="check_xvidser_hun" type="checkbox" value="xvidser_hun" onclick="tipust_valt();"></td><td width="75"><a title="Sorozatok DivX, XviD formátumban magyarul." href="/torrents.php?tipus=xvidser_hun">XviD/HU</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_xvidser" type="checkbox" value="xvidser" onclick="tipust_valt();"></td><td width="75"><a title="Sorozatok DivX, XviD formátumban angolul." href="/torrents.php?tipus=xvidser">XviD/EN</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_dvdser_hun" type="checkbox" value="dvdser_hun" onclick="tipust_valt();"></td><td width="75"><a title="Sorozatok DVD-n magyarul." href="/torrents.php?tipus=dvdser_hun">DVDR/HU</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_dvdser" type="checkbox" value="dvdser" onclick="tipust_valt();"></td><td width="75"><a title="Sorozatok DVD-n angolul." href="/torrents.php?tipus=dvdser">DVDR/EN</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_hdser_hun" type="checkbox" value="hdser_hun" onclick="tipust_valt();"></td><td width="75"><a title="Nagyfelbontású sorozatok HD-n magyarul." href="/torrents.php?tipus=hdser_hun">HD/HU</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_hdser" type="checkbox" value="hdser" onclick="tipust_valt();"></td><td width="75"><a title="Nagyfelbontású sorozatok HD-n angolul." href="/torrents.php?tipus=hdser">HD/EN</a></td>		<td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td>
+                                                </tr></table></div>
+                                        <div style="display:none;width:840;" id="zene_resz">
+                                            <table width="840" border="0" cellspacing="0" cellpadding="0">
+                                                <tr><td width="80"><a href="javascript:void(0);" onclick="markAll('zene_resz');">Zene</a>:</td>
+                                                    <td width="20"><input name="kivalasztott_tipus[]" id="check_mp3_hun" type="checkbox" value="mp3_hun" onclick="tipust_valt();"></td><td width="75"><a title="Zene magyar előadóktól (MP3)." href="/torrents.php?tipus=mp3_hun">MP3/HU</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_mp3" type="checkbox" value="mp3" onclick="tipust_valt();"></td><td width="75"><a title="Zene külföldi előadóktól (MP3)." href="/torrents.php?tipus=mp3">MP3/EN</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_lossless_hun" type="checkbox" value="lossless_hun" onclick="tipust_valt();"></td><td width="75"><a title="Lossless, azaz veszteségmentes formátumú zene magyar eloadótól (APE/FLAC/DTS/WAV)." href="/torrents.php?tipus=lossless_hun">Lossless/HU</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_lossless" type="checkbox" value="lossless" onclick="tipust_valt();"></td><td width="75"><a title="Lossless, azaz veszteségmentes formátumú zene külföldi eloadótól (APE/FLAC/DTS/WAV)." href="/torrents.php?tipus=lossless">Lossless/EN</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_clip" type="checkbox" value="clip" onclick="tipust_valt();"></td><td width="75"><a title="Koncertek, Zenei anyagok." href="/torrents.php?tipus=clip">Klip</a></td>		<td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td>
+                                                </tr></table></div>
+                                        <div style="display:none;width:840;" id="xxx_resz">
+                                            <table width="840" border="0" cellspacing="0" cellpadding="0">
+                                                <tr><td width="80"><a href="javascript:void(0);" onclick="markAll('xxx_resz');">XXX</a>:</td>
+                                                    <td width="20"><input name="kivalasztott_tipus[]" id="check_xxx_xvid" type="checkbox" value="xxx_xvid" onclick="tipust_valt();"></td><td width="75"><a title="Erotikus tartalom (XviD)." href="/torrents.php?tipus=xxx_xvid">XviD</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_xxx_dvd" type="checkbox" value="xxx_dvd" onclick="tipust_valt();"></td><td width="75"><a title="Erotikus tartalom (DVD)." href="/torrents.php?tipus=xxx_dvd">DVDR</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_xxx_imageset" type="checkbox" value="xxx_imageset" onclick="tipust_valt();"></td><td width="75"><a title="Erotikus tartalom (Képsorozatok)." href="/torrents.php?tipus=xxx_imageset">Imageset</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_xxx_hd" type="checkbox" value="xxx_hd" onclick="tipust_valt();"></td><td width="75"><a title="Erotikus tartalom (HD)." href="/torrents.php?tipus=xxx_hd">HD</a></td>		<td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td>
+                                                </tr></table></div>
+                                        <div style="display:none;width:840;" id="jatek_resz">
+                                            <table width="840" border="0" cellspacing="0" cellpadding="0">
+                                                <tr><td width="80"><a href="javascript:void(0);" onclick="markAll('jatek_resz');">Játék</a>:</td>
+                                                    <td width="20"><input name="kivalasztott_tipus[]" id="check_game_iso" type="checkbox" value="game_iso" onclick="tipust_valt();"></td><td width="75"><a title="Játékok CD/DVD képben." href="/torrents.php?tipus=game_iso">PC/ISO</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_game_rip" type="checkbox" value="game_rip" onclick="tipust_valt();"></td><td width="75"><a title="Játék RIP-ek, törések, egyéb." href="/torrents.php?tipus=game_rip">PC/RIP</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_console" type="checkbox" value="console" onclick="tipust_valt();"></td><td width="75"><a title="Játékok Xbox-ra, PS-re, PSP-re, GC-re, Wii-re." href="/torrents.php?tipus=console">Konzol</a></td>		<td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td>
+                                                </tr></table></div>
+                                        <div style="display:none;width:840;" id="prg_resz">
+                                            <table width="840" border="0" cellspacing="0" cellpadding="0">
+                                                <tr><td width="80"><a href="javascript:void(0);" onclick="markAll('prg_resz');">Program</a>:</td>
+                                                    <td width="20"><input name="kivalasztott_tipus[]" id="check_iso" type="checkbox" value="iso" onclick="tipust_valt();"></td><td width="75"><a title="Szoftverek, programok CD/DVD képben." href="/torrents.php?tipus=iso">Prog/ISO</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_misc" type="checkbox" value="misc" onclick="tipust_valt();"></td><td width="75"><a title="Programok/Egyéb" href="/torrents.php?tipus=misc">Prog/RIP</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_mobil" type="checkbox" value="mobil" onclick="tipust_valt();"></td><td width="75"><a title="Programok és játékok mobilra." href="/torrents.php?tipus=mobil">Prog/Mobil</a></td>		<td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td><td width="20"></td>
+                                                </tr></table></div>
+                                        <div style="display:none;width:840;" id="konyv_resz">
+                                            <table width="840" border="0" cellspacing="0" cellpadding="0">
+                                                <tr><td width="80"><a href="javascript:void(0);" onclick="markAll('konyv_resz');">Könyv</a>:</td>
+                                                    <td width="20"><input name="kivalasztott_tipus[]" id="check_ebook_hun" type="checkbox" value="ebook_hun" onclick="tipust_valt();"></td><td width="75"><a title="Könyvek, dokumentációk, tananyagok, eBook-ok magyarul." href="/torrents.php?tipus=ebook_hun">eBook/HU</a></td>		<td width="20"><input name="kivalasztott_tipus[]" id="check_ebook" type="checkbox" value="ebook" onclick="tipust_valt();"></td><td width="75"><a title="Könyvek, dokumentációk, tananyagok, eBook-ok angolul." href="/torrents.php?tipus=ebook">eBook/EN</a></td>		<td width="20"></td><td width="75"></td><td width="20"></td><td width="80"></td><td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td><td width="20"></td><td width="75"></td>
+                                                </tr></table></div>
+                                        <div class="hr_stuff"></div>
+                                        <center>
+                                            <table id="keresoresz" style="width: 700px">
+                                                <tr>
+                                                    <!--[if IE]>
+                                                    <input type="submit" value="" style="height:0px;width:1px;border:none;background:transparent;">
+                                                    <![endif]-->
+                                                    <td width="80" style="text-align:left;">Keresés:</td>
+                                                    <td width="150">
+                                                        <input  id="mire" type="text" name="mire" value="" class="keresesMezo">
+                                                    </td>
+                                                    <td width="20" style="text-align:center;"> - </td>
+                                                    <td width="130">
+                                                        <select name="miben" class="valasztasMezo" style="width:130px;">
+                                                            <option value="name"  selected>Címben</option>
+                                                            <option value="leiras" >Leírásban</option>
+                                                            <option value="uploaded_by_nev" >Feltöltő nevére</option>
+                                                            <option value="cimke" >Címke</option>
+                                                        </select>
+                                                    </td>
+                                                    <td width="20" style="text-align:center;"> - </td>
+                                                    <td width="130">
+                                                        <select name="tipus" id="listazasi_tipus" class="valasztasMezo">
+                                                            <option value="all_own" selected>Összes saját típusban</option>
+                                                            <option value="all">Összes típusban</option>
+                                                            <option value="kivalasztottak_kozott">Kiválasztott típusokban</option>
+                                                            <option value="eredeti_releasekben">Eredeti release-ekben</option>
+                                                            <option value="all"></option>
+                                                            <option value="xvid_hun">Film (HUN XviD)</option>					<option value="xvid">Film (ENG XviD)</option>					<option value="dvd_hun">Film (HUN DVD)</option>					<option value="dvd">Film (ENG DVD)</option>					<option value="dvd9_hun">Film (HUN DVD9)</option>					<option value="dvd9">Film (ENG DVD9)</option>					<option value="hd_hun">Film (HUN HD)</option>					<option value="hd">Film (ENG HD)</option>					<option value="xvidser_hun">Sorozat (HUN XviD)</option>					<option value="xvidser">Sorozat (ENG XviD)</option>					<option value="dvdser_hun">Sorozat (HUN DVD)</option>					<option value="dvdser">Sorozat (ENG DVD)</option>					<option value="hdser_hun">Sorozat (HUN HD)</option>					<option value="hdser">Sorozat (ENG HD)</option>					<option value="mp3_hun">Mp3 (HUN)</option>					<option value="mp3">Mp3 (ENG)</option>					<option value="lossless_hun">Lossless (HUN)</option>					<option value="lossless">Lossless (ENG)</option>					<option value="clip">Klip</option>					<option value="game_iso">Játék (ISO)</option>					<option value="game_rip">Játék (RIP)</option>					<option value="console">Konzol</option>					<option value="ebook_hun">e-Book (HUN)</option>					<option value="ebook">e-Book (ENG)</option>					<option value="iso">Program (ISO)</option>					<option value="misc">Program</option>					<option value="mobil">Mobil</option>					<option value="xxx_xvid">XXX (XviD)</option>					<option value="xxx_dvd">XXX (DVD/DVD9)</option>					<option value="xxx_imageset">XXX (Imageset)</option>					<option value="xxx_hd">XXX (HD)</option>				</select>
+                                                    </td>
+                                                    <td width="100"></td>
+                                                    <td width="100" align="center" style="padding-left:15px;"><input type="image" value="Ok" name="submit" class="g_mehet" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7"></td>
+                                                </tr>
+                                                <tr height="5">
+                                                    <td colspan="8"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="80" style="text-align:left;">Címkék:  </td>
+                                                    <td><input value="" type="text" id="tags" name="tags" value="" class="keresesMezo" style="width:150px;"></td>
+                                                    <td></td>
+                                                    <td nowrap="" style="text-align:left;"><a href="javascript:void(0);" onclick="showTags();"><span id="cimke_text">[címkék mutatása]</span></a></td>
+                                                    <td colspan="3"></td>
+                                                    <td nowrap="" align="center" style="padding-left:15px;">
+                                                        <a href="/torrents.php" style="padding-top:5px;">[feltételek törlése]</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </center>
+                                        <div id="cimkek_lista" style="display:none;padding-left:0;text-align:left;">
+                                            <div class="hr_stuff"></div>
+                                            <center>
+                                                <table width="890" border="0" cellspacing="0" cellpadding="0" style="padding-top:5px;padding-bottom:5px;padding-left:10px;">
+                                                    <tr height="20"><td align="left" colspan="7"><input  type="checkbox" name="inverz_tags"> Inverz címkék (a kiválasztottak ne szerepeljenek)</td></tr>
+                                                    <tr height="10"><td colspan="7"></td></tr>
+                                                    <tr height="20"><td align="left" colspan="7">Filmek:</td></tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('vígjáték');">vígjáték</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('dráma');">dráma</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('életrajz');">életrajz</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('akció');">akció</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('romantikus');">romantikus</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('dokumentumfilm');">dokumentumfilm</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('kaland');">kaland</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('animáció');">animáció</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('thriller');">thriller</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('családi');">családi</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('bűnügyi');">bűnügyi</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('rövidfilm');">rövidfilm</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('musical');">musical</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('sci-fi');">sci-fi</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('misztikus');">misztikus</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('háborús');">háborús</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('western');">western</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('horror');">horror</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('történelmi');">történelmi</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('sport');">sport</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('zene');">zene</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('ismeretterjesztő');">ismeretterjesztő</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('valóságshow');">valóságshow</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('3D');">3D</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('fantasy');">fantasy</a></td>
+                                                    </tr>
+                                                    <tr height="20"><td align="left" colspan="7">Zenék:</td></tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('60s');">60s</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('70s');">70s</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('80s');">80s</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('90s');">90s</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('alternative');">alternative</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('blues');">blues</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('breaks');">breaks</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('classical');">classical</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('country');">country</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('dance');">dance</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('drum.and.bass');">drum.and.bass</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('electronic');">electronic</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('folk');">folk</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('funk');">funk</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('garage');">garage</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('grunge');">grunge</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('hardcore');">hardcore</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('hardcore.dance');">hardcore.dance</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('hip.hop');">hip.hop</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('house');">house</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('industrial');">industrial</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('jazz');">jazz</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('metal');">metal</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('new.age');">new.age</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('ost');">ost</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('pop');">pop</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('pop.rock');">pop.rock</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('progressive.rock');">progressive.rock</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('psychedelic');">psychedelic</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('psytrance');">psytrance</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('punk');">punk</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('reggae');">reggae</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('rhythm.and.blues');">rhythm.and.blues</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('rock');">rock</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('ska');">ska</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('soul');">soul</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('techno');">techno</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('trance');">trance</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('trip.hop');">trip.hop</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('uk.garage');">uk.garage</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('world.music');">world.music</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('acid');">acid</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('emo');">emo</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('death.metal');">death.metal</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('disco');">disco</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('europop');">europop</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('goa.trance');">goa.trance</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('hardstyle');">hardstyle</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('indie.rock');">indie.rock</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('musical');">musical</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('progressive.house');">progressive.house</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('progressive.trance');">progressive.trance</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('italo.disco');">italo.disco</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('live');">live</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('dub');">dub</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('experimental');">experimental</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('ambient');">ambient</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('latin');">latin</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('synth.pop');">synth.pop</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('euro.house');">euro.house</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('eurodance');">eurodance</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('euro.disco');">euro.disco</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('dubstep');">dubstep</a></td>
+                                                    </tr>
+                                                    <tr height="20"><td align="left" colspan="7">Ebook:</td></tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('életmód.egészség');">életmód.egészség</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('erotika');">erotika</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('ezoterika');">ezoterika</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('gasztronómia');">gasztronómia</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('gyermek');">gyermek</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('hangoskönyv');">hangoskönyv</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('hobbi');">hobbi</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('irodalom');">irodalom</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('kert.és.lakás');">kert.és.lakás</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('lexikon.enciklopédia');">lexikon.enciklopédia</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('magazin');">magazin</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('manga.képregény');">manga.képregény</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('művészet');">művészet</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('pénz.befektetés.üzlet');">pénz.befektetés.üzlet</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('sport');">sport</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('szakkönyv');">szakkönyv</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('számítástechnika');">számítástechnika</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('szórakoztató.irodalom');">szórakoztató.irodalom</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('szótár.nyelvkönyv');">szótár.nyelvkönyv</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('tankönyv.segédkönyv');">tankönyv.segédkönyv</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('társadalomtudomány');">társadalomtudomány</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('természettudomány');">természettudomány</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('történelem');">történelem</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('utazás');">utazás</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('vallás');">vallás</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('zene');">zene</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('sci-fi');">sci-fi</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('fantasy');">fantasy</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('romantikus');">romantikus</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('hadászat');">hadászat</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('ismeretterjesztő');">ismeretterjesztő</a></td>
+                                                        <td align="left" width="14%"><a style="font-weight:normal;" href="javascript:void(0);" onclick="addTag('szépirodalom');">szépirodalom</a></td>
+                                                    </tr>
+                                                </table>
+                                            </center>
+                                        </div>
+                                    </form>
+                                    <div class="hr_stuff" id="letoltes_hr"></div>
+                                </div>
+                                <script type="text/javascript">
+                                </script>
+                                <div onclick="if (document.getElementById('panel_stuff').className=='panel_closed') {document.getElementById('kategoriak').style.display='block';document.getElementById('panel_stuff').className='panel_open';} else {document.getElementById('kategoriak').style.display='none';document.getElementById('panel_stuff').className='panel_closed';}" class="panel_closed" id="panel_stuff"><a href="javascript:void(0)"></a></div>
+                                <div id='pager_top'><span class="active_link"><strong>1-25</strong></span> | <a id="nPa" href="/torrents.php?oldal=2&tipus=all_own&mire=&miben=name"><strong>26-50</strong></a> | <a href="/torrents.php?oldal=3&tipus=all_own&mire=&miben=name"><strong>51-75</strong></a> | <a href="/torrents.php?oldal=4&tipus=all_own&mire=&miben=name"><strong>76-100</strong></a> | <a href="/torrents.php?oldal=5&tipus=all_own&mire=&miben=name"><strong>101-125</strong></a> | <a href="/torrents.php?oldal=6&tipus=all_own&mire=&miben=name"><strong>126-150</strong></a> | <a href="/torrents.php?oldal=7&tipus=all_own&mire=&miben=name"><strong>151-175</strong></a> | <a href="/torrents.php?oldal=8&tipus=all_own&mire=&miben=name"><strong>176-200</strong></a> | <a href="/torrents.php?oldal=9&tipus=all_own&mire=&miben=name"><strong>201-225</strong></a> | <a href="/torrents.php?oldal=10&tipus=all_own&mire=&miben=name"><strong>226-250</strong></a> | <a href="/torrents.php?oldal=10&tipus=all_own&mire=&miben=name"><strong> &raquo;</strong></a>  | <a href="/torrents.php?oldal=17&tipus=all_own&mire=&miben=name"><strong>Utolsó</strong></a></div>        </div>
+                            <div class="fobox_lab"></div>
+                        </div>
+                        <script type="text/javascript">
+	keresestMutat()
+</script>
+                        <center id="upperad">
+                            <div class="banner" data-id="420" data-banner-id="408" data-zone-id="1,2,3,4"><iframe src="//html5.host.bannerflow.com/ad_708361_25.html?pid=282205&bid=2909" style="border:0;width:728px;height:90px;" scrolling="no" frameBorder="0"></iframe></div></center>
+                        <br>
+                        <div class="lista_all">
+                            <div class="lista_fej_t"></div>
+                            <div class="lista_fej">Böngésző</div>
+                            <div class="lista_fej_b"></div>
+                            <div class="box_alcimek_all">
+                                <div class="box_alap">
+                                    <table class="alcim">
+                                        <tr>
+                                            <td><div class="alcim_bal"></div></td>
+                                            <td><div class="box_tipus">Típus</div></td>
+                                            <td><div class="alcim_jobb"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="box_alap">
+                                    <table class="alcim">
+                                        <tr>
+                                            <td><div class="alcim_bal"></div></td>
+                                            <td><div class="box_nev"><a href="/torrents.php?miszerint=name&amp;hogyan=DESC&amp;tipus=all_own&mire=&miben=name">Név</a></div></td>
+                                            <td><div class="alcim_jobb"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="box_alap">
+                                    <table class="alcim">
+                                        <tr>
+                                            <td><div class="alcim_bal"></div></td>
+                                            <td><div class="box_feltoltve"><a href="/torrents.php?miszerint=fid&amp;hogyan=DESC&amp;tipus=all_own&mire=&miben=name">Feltöltve</a></div></td>
+                                            <td><div class="alcim_jobb"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="box_alap">
+                                    <table class="alcim">
+                                        <tr>
+                                            <td><div class="alcim_bal"></div></td>
+                                            <td><div class="box_meret"><a href="/torrents.php?miszerint=size&amp;hogyan=DESC&amp;tipus=all_own&mire=&miben=name">Méret</a></div></td>
+                                            <td><div class="alcim_jobb"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="box_alap">
+                                    <table class="alcim">
+                                        <tr>
+                                            <td><div class="alcim_bal"></div></td>
+                                            <td><div class="box_d"><a href="/torrents.php?miszerint=times_completed&amp;hogyan=DESC&amp;tipus=all_own&mire=&miben=name">D</a></div></td>
+                                            <td><div class="alcim_jobb"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="box_alap">
+                                    <table class="alcim">
+                                        <tr>
+                                            <td><div class="alcim_bal"></div></td>
+                                            <td><div class="box_s"><a href="/torrents.php?miszerint=seeders&amp;hogyan=DESC&amp;tipus=all_own&mire=&miben=name">S</a></div></td>
+                                            <td><div class="alcim_jobb"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="box_alap">
+                                    <table class="alcim">
+                                        <tr>
+                                            <td><div class="alcim_bal"></div></td>
+                                            <td><div class="box_l"><a href="/torrents.php?miszerint=leechers&amp;hogyan=DESC&amp;tipus=all_own&mire=&miben=name">L</a></div></td>
+                                            <td><div class="alcim_jobb"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="box_alap_utolso">
+                                    <table class="alcim">
+                                        <tr>
+                                            <td><div class="alcim_bal"></div></td>
+                                            <td><div class="box_feltolto">Feltöltő</div></td>
+                                            <td><div class="alcim_jobb"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="box_torrent_all">
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=mp3"><img src="https://static.ncore.cc/styles/ncold/ico/ico_mp3.gif" class="categ_link" alt="MP3/EN" title="Zene külföldi előadóktól (MP3)."></a>
+                                    </div>
+                                    <div class="box_nagy2">
+                                        <div class="box_nev2">
+                                            <div class="tabla_szoveg">
+                                                <div style="cursor:pointer" onclick="konyvjelzo('12345');" class="torrent_konyvjelzo"></div>
+                                                <div class="torrent_txt2">
+                                                    <a href="torrents.php?action=details&id=12345" onclick="torrent(12345); return false;" title="test series"><nobr>test series</nobr></a>
+                                                </div>
+                                            </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-25<br>13:26:51</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">68.3 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">43</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=12345&peers=1#peers">5</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=12345&peers=1#peers">0</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo2" style="display:none;" id="12345"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=xvidser_hun"><img src="https://static.ncore.cc/styles/ncold/ico/ico_xvidser_hun.gif" class="categ_link" alt="XviD/HU" title="Sorozatok DivX, XviD formátumban magyarul."></a>
+                                    </div>
+                                    <div class="box_nagy">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1765581'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1765581');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1765581" onclick="torrent(1765581); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1765581')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0224/4b20e587c5576bae1194d2d4f5941d86/px55801074.png', '231', 'borito1765581', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-24<br>10:05:38</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">438.64 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">12137</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1765581&peers=1#peers">2075</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1765581&peers=1#peers">9</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo" style="display:none;" id="1765581"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=xvidser_hun"><img src="https://static.ncore.cc/styles/ncold/ico/ico_xvidser_hun.gif" class="categ_link" alt="XviD/HU" title="Sorozatok DivX, XviD formátumban magyarul."></a>
+                                    </div>
+                                    <div class="box_nagy2">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1765580'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1765580');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1765580" onclick="torrent(1765580); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1765580')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0224/8b513d112776e6fe21cde7d3d4fe7535/px10716584.png', '231', 'borito1765580', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-24<br>10:05:36</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">378.22 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">1690</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1765580&peers=1#peers">341</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1765580&peers=1#peers">2</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo2" style="display:none;" id="1765580"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=xvidser_hun"><img src="https://static.ncore.cc/styles/ncold/ico/ico_xvidser_hun.gif" class="categ_link" alt="XviD/HU" title="Sorozatok DivX, XviD formátumban magyarul."></a>
+                                    </div>
+                                    <div class="box_nagy">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1765579'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1765579');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1765579" onclick="torrent(1765579); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1765579')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0224/5c87ce9e3d0867c8cbb4abf92ed5e242/px35312634.png', '231', 'borito1765579', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-24<br>10:05:34</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">548.25 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">933</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1765579&peers=1#peers">166</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1765579&peers=1#peers">1</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo" style="display:none;" id="1765579"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=xvidser_hun"><img src="https://static.ncore.cc/styles/ncold/ico/ico_xvidser_hun.gif" class="categ_link" alt="XviD/HU" title="Sorozatok DivX, XviD formátumban magyarul."></a>
+                                    </div>
+                                    <div class="box_nagy2">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1765578'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1765578');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1765578" onclick="torrent(1765578); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1765578')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0224/b1219dfeaa0d0f47ab373352a3c43dfd/px72747043.png', '231', 'borito1765578', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-24<br>10:05:32</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">435.05 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">445</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1765578&peers=1#peers">107</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1765578&peers=1#peers">2</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo2" style="display:none;" id="1765578"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=hdser_hun"><img src="https://static.ncore.cc/styles/ncold/ico/ico_hdser_hun.gif" class="categ_link" alt="HD/HU" title="Nagyfelbontású sorozatok magyarul."></a>
+                                    </div>
+                                    <div class="box_nagy">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1765577'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1765577');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1765577" onclick="torrent(1765577); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1765577')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0224/293045ca271af2e16d96dfff995835e9/px35555195.png', '231', 'borito1765577', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-24<br>10:05:30</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">1.45 GB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">1428</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1765577&peers=1#peers">303</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1765577&peers=1#peers">1</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo" style="display:none;" id="1765577"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=hdser_hun"><img src="https://static.ncore.cc/styles/ncold/ico/ico_hdser_hun.gif" class="categ_link" alt="HD/HU" title="Nagyfelbontású sorozatok magyarul."></a>
+                                    </div>
+                                    <div class="box_nagy2">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1765576'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1765576');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1765576" onclick="torrent(1765576); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1765576')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0224/cbab8721013bb6aa5cbb11b6f56ec6a7/px36951487.png', '231', 'borito1765576', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-24<br>10:05:28</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">1.81 GB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">1647</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1765576&peers=1#peers">377</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1765576&peers=1#peers">2</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo2" style="display:none;" id="1765576"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=hdser"><img src="https://static.ncore.cc/styles/ncold/ico/ico_hdser.gif" class="categ_link" alt="HD/EN" title="Nagyfelbontású sorozatok angolul és egyéb nyelveken."></a>
+                                    </div>
+                                    <div class="box_nagy">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1765275'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1765275');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1765275" onclick="torrent(1765275); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1765275')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0223/625a3ef516c1983da0abafb88e273476/px84377460.jpg', '317', 'borito1765275', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-23<br>21:30:47</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">1.33 GB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">762</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1765275&peers=1#peers">145</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1765275&peers=1#peers">1</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo" style="display:none;" id="1765275"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=xvidser"><img src="https://static.ncore.cc/styles/ncold/ico/ico_xvidser.gif" class="categ_link" alt="XviD/EN" title="Sorozatok DivX, XviD formátumban angolul és egyéb nyelveken."></a>
+                                    </div>
+                                    <div class="box_nagy2">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1764950'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1764950');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1764950" onclick="torrent(1764950); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1764950')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0223/55b7812e509d6981fe7225eafceece96/px60339893.jpg', '317', 'borito1764950', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-23<br>15:27:46</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">293.16 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">5272</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1764950&peers=1#peers">639</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1764950&peers=1#peers">2</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo2" style="display:none;" id="1764950"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=hdser"><img src="https://static.ncore.cc/styles/ncold/ico/ico_hdser.gif" class="categ_link" alt="HD/EN" title="Nagyfelbontású sorozatok angolul és egyéb nyelveken."></a>
+                                    </div>
+                                    <div class="box_nagy">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1764913'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1764913');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1764913" onclick="torrent(1764913); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1764913')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0223/07f28ff2ba2db760b4ba65c92b955f3c/px22911995.jpg', '317', 'borito1764913', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-23<br>14:05:09</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">1.69 GB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">2549</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1764913&peers=1#peers">389</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1764913&peers=1#peers">2</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo" style="display:none;" id="1764913"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=hdser"><img src="https://static.ncore.cc/styles/ncold/ico/ico_hdser.gif" class="categ_link" alt="HD/EN" title="Nagyfelbontású sorozatok angolul és egyéb nyelveken."></a>
+                                    </div>
+                                    <div class="box_nagy2">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1764695'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1764695');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1764695" onclick="torrent(1764695); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1764695')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0223/4b5b95ec0f9d479d7ad00e58782d7ca1/px83356569.jpg', '317', 'borito1764695', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-23<br>08:25:45</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">4.05 GB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">778</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1764695&peers=1#peers">137</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1764695&peers=1#peers">0</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo2" style="display:none;" id="1764695"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=hdser"><img src="https://static.ncore.cc/styles/ncold/ico/ico_hdser.gif" class="categ_link" alt="HD/EN" title="Nagyfelbontású sorozatok angolul és egyéb nyelveken."></a>
+                                    </div>
+                                    <div class="box_nagy">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1764657'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1764657');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1764657" onclick="torrent(1764657); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1764657')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0223/9a24ce6292f39445b9483f31adbb8960/px64424523.jpg', '317', 'borito1764657', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-23<br>05:38:20</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">1.6 GB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">4258</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1764657&peers=1#peers">654</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1764657&peers=1#peers">114</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo" style="display:none;" id="1764657"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=xvidser"><img src="https://static.ncore.cc/styles/ncold/ico/ico_xvidser.gif" class="categ_link" alt="XviD/EN" title="Sorozatok DivX, XviD formátumban angolul és egyéb nyelveken."></a>
+                                    </div>
+                                    <div class="box_nagy2">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1764644'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1764644');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1764644" onclick="torrent(1764644); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1764644')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0223/efff5a775ad7f96091707f01406ac12f/px16277599.jpg', '317', 'borito1764644', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-23<br>05:16:13</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">348.47 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">10380</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1764644&peers=1#peers">1254</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1764644&peers=1#peers">1</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo2" style="display:none;" id="1764644"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=xvidser"><img src="https://static.ncore.cc/styles/ncold/ico/ico_xvidser.gif" class="categ_link" alt="XviD/EN" title="Sorozatok DivX, XviD formátumban angolul és egyéb nyelveken."></a>
+                                    </div>
+                                    <div class="box_nagy">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1764619'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1764619');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1764619" onclick="torrent(1764619); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1764619')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0223/9d146adcba0f84e2406e9d247660fd60/px43366385.jpg', '317', 'borito1764619', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-23<br>04:30:25</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">350.24 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">3803</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1764619&peers=1#peers">611</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1764619&peers=1#peers">76</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo" style="display:none;" id="1764619"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=xvidser_hun"><img src="https://static.ncore.cc/styles/ncold/ico/ico_xvidser_hun.gif" class="categ_link" alt="XviD/HU" title="Sorozatok DivX, XviD formátumban magyarul."></a>
+                                    </div>
+                                    <div class="box_nagy2">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1763577'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1763577');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1763577" onclick="torrent(1763577); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1763577')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0221/69b97071ae526793876f1be1db2e26d4/px47439370.jpg', '321', 'borito1763577', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"> <span title="Vámpírnaplók">Vámpírnaplók</span> <a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1405406/"><b>[</b>imdb: 8.0<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-21<br>13:48:11</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">319.29 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">420</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1763577&peers=1#peers">84</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1763577&peers=1#peers">0</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo2" style="display:none;" id="1763577"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=lossless"><img src="https://static.ncore.cc/styles/ncold/ico/ico_lossless.gif" class="categ_link" alt="Lossless/EN" title="Lossless, azaz veszteségmentes formátumú zene külföldi eloadótól (APE/FLAC/DTS/WAV)."></a>
+                                    </div>
+                                    <div class="box_nagy">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1763328'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1763328');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1763328" onclick="torrent(1763328); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1763328')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0221/c3beee4c9a7b0bcf45d0b5647a48c8d0/px48770867.jpg', '280', 'borito1763328', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-21<br>08:13:47</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">161.82 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">34</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1763328&peers=1#peers">5</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1763328&peers=1#peers">0</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo" style="display:none;" id="1763328"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=hdser_hun"><img src="https://static.ncore.cc/styles/ncold/ico/ico_hdser_hun.gif" class="categ_link" alt="HD/HU" title="Nagyfelbontású sorozatok magyarul."></a>
+                                    </div>
+                                    <div class="box_nagy2">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1762463'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1762463');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1762463" onclick="torrent(1762463); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1762463')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0219/88c015e1d9596b5996906bdfc085a718/px82065303.jpg', '317', 'borito1762463', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-19<br>22:19:13</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">46.57 GB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">32</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1762463&peers=1#peers">7</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1762463&peers=1#peers">0</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo2" style="display:none;" id="1762463"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=xvidser_hun"><img src="https://static.ncore.cc/styles/ncold/ico/ico_xvidser_hun.gif" class="categ_link" alt="XviD/HU" title="Sorozatok DivX, XviD formátumban magyarul."></a>
+                                    </div>
+                                    <div class="box_nagy">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1760572'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1760572');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1760572" onclick="torrent(1760572); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1760572')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0217/cc5c4c606dcbae84a19d2bb42637710e/px89414963.png', '231', 'borito1760572', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-17<br>10:18:52</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">435.67 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">19888</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1760572&peers=1#peers">2319</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1760572&peers=1#peers">2</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo" style="display:none;" id="1760572"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=xvidser_hun"><img src="https://static.ncore.cc/styles/ncold/ico/ico_xvidser_hun.gif" class="categ_link" alt="XviD/HU" title="Sorozatok DivX, XviD formátumban magyarul."></a>
+                                    </div>
+                                    <div class="box_nagy2">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1760571'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1760571');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1760571" onclick="torrent(1760571); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1760571')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0217/b4f9bdcbeb3fc9f621fd25b7ab7cca2d/px68014923.png', '231', 'borito1760571', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-17<br>10:18:49</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">496.47 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">2042</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1760571&peers=1#peers">303</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1760571&peers=1#peers">0</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo2" style="display:none;" id="1760571"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=xvidser_hun"><img src="https://static.ncore.cc/styles/ncold/ico/ico_xvidser_hun.gif" class="categ_link" alt="XviD/HU" title="Sorozatok DivX, XviD formátumban magyarul."></a>
+                                    </div>
+                                    <div class="box_nagy">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1760570'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1760570');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1760570" onclick="torrent(1760570); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1760570')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0217/b3305b1448386af241d0f47d0129ca23/px15200453.png', '231', 'borito1760570', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-17<br>10:18:46</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">547.88 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">1497</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1760570&peers=1#peers">187</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1760570&peers=1#peers">1</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo" style="display:none;" id="1760570"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=xvidser_hun"><img src="https://static.ncore.cc/styles/ncold/ico/ico_xvidser_hun.gif" class="categ_link" alt="XviD/HU" title="Sorozatok DivX, XviD formátumban magyarul."></a>
+                                    </div>
+                                    <div class="box_nagy2">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1760569'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1760569');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1760569" onclick="torrent(1760569); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1760569')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0217/2dacf7283e51ce3b01903a23e52449cc/px43359028.png', '231', 'borito1760569', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-17<br>10:18:45</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">553.22 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">1179</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1760569&peers=1#peers">163</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1760569&peers=1#peers">0</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo2" style="display:none;" id="1760569"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=hdser_hun"><img src="https://static.ncore.cc/styles/ncold/ico/ico_hdser_hun.gif" class="categ_link" alt="HD/HU" title="Nagyfelbontású sorozatok magyarul."></a>
+                                    </div>
+                                    <div class="box_nagy">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1760568'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1760568');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1760568" onclick="torrent(1760568); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1760568')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0217/b62a78fb6d4e3ed3f00d17e43cb73ed3/px84756727.png', '231', 'borito1760568', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-17<br>10:18:43</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">1.44 GB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">2178</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1760568&peers=1#peers">285</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1760568&peers=1#peers">0</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo" style="display:none;" id="1760568"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=hdser_hun"><img src="https://static.ncore.cc/styles/ncold/ico/ico_hdser_hun.gif" class="categ_link" alt="HD/HU" title="Nagyfelbontású sorozatok magyarul."></a>
+                                    </div>
+                                    <div class="box_nagy2">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1760567'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1760567');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1760567" onclick="torrent(1760567); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1760567')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0217/a7e5cee22967e390d790440e26ae0207/px48032994.png', '231', 'borito1760567', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-17<br>10:18:41</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">1.79 GB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">2699</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1760567&peers=1#peers">386</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1760567&peers=1#peers">2</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo2" style="display:none;" id="1760567"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=xvidser"><img src="https://static.ncore.cc/styles/ncold/ico/ico_xvidser.gif" class="categ_link" alt="XviD/EN" title="Sorozatok DivX, XviD formátumban angolul és egyéb nyelveken."></a>
+                                    </div>
+                                    <div class="box_nagy">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1760392'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1760392');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1760392" onclick="torrent(1760392); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1760392')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0216/fdafa6109f0130f7fa0d75fc48b1d58a/px83259177.jpg', '317', 'borito1760392', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-16<br>22:39:47</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">434.2 MB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">3323</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1760392&peers=1#peers">361</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1760392&peers=1#peers">0</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo" style="display:none;" id="1760392"></div>
+                                <div style="clear:both;"></div>
+                                <div class="box_torrent">
+                                    <div class="box_alap_img">
+                                        <a href="/torrents.php?tipus=hdser"><img src="https://static.ncore.cc/styles/ncold/ico/ico_hdser.gif" class="categ_link" alt="HD/EN" title="Nagyfelbontású sorozatok angolul és egyéb nyelveken."></a>
+                                    </div>
+                                    <div class="box_nagy2">
+                                        <div class="box_nev2">
+                                            <div style='display:none;' id='borito1760380'></div>			<div class="tabla_szoveg">
+                                            <div style="cursor:pointer" onclick="konyvjelzo('1760380');" class="torrent_konyvjelzo2"></div>
+                                            <div class="torrent_txt">
+                                                <a href="torrents.php?action=details&id=1760380" onclick="torrent(1760380); return false;" title="test"><nobr>test</nobr></a>
+                                                <div class='torrent_txt_also'><div class="infobar"><img onmouseout="elrejt('borito1760380')" onmouseover="mutat('https://ba0a3efb26db67f2.cdn.l7cache.com/pictures/2015/0216/5dd548ee30d109cf2f3d7794c9bdcaf1/px55752924.jpg', '317', 'borito1760380', this)" border="0" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7" class="infobar_ico"></div><div class="siterank"><a class="infolink" target="_blank" href="http://hideref.l7cache.com/?http://hungarian.imdb.com/title/tt1520211/"><b>[</b>imdb: 8.7<b>]</b></a> </div></div>					</div>
+                                        </div>
+
+                                            <div class="torrent_ok" title="A torrent megfelel a szabályoknak"></div>			</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltoltve2">2015-02-16<br>21:44:31</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_meret2">1.69 GB</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_d2">341</div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_s2"><a class="torrent" href="torrents.php?action=details&id=1760380&peers=1#peers">221</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_l2"><a class="torrent" href="torrents.php?action=details&id=1760380&peers=1#peers">0</a></div>
+                                        <div class="users_box_sepa"></div>
+                                        <div class="box_feltolto2"><a href="wiki.php?action=read&id=391"><span class="feltolto_szin">Anonymous</span></a></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="torrent_lenyilo2" style="display:none;" id="1760380"></div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="lista_lab"></div>
+                        </div>
+                        <div style="clear:both;"></div>    <div class="fobox_all" id="torrents2">
+                        <div class="fobox_fej_t"></div>
+                        <div class="fobox_fej">Lapozó</div>
+                        <div class="fobox_fej_b"></div>
+                        <div class="fobox_tartalom_t"></div>
+                        <div class="fobox_tartalom">
+                            <div id="pager_bottom"><span class="active_link"><strong>1-25</strong></span> | <a id="nPa" href="/torrents.php?oldal=2&tipus=all_own&mire=&miben=name"><strong>26-50</strong></a> | <a href="/torrents.php?oldal=3&tipus=all_own&mire=&miben=name"><strong>51-75</strong></a> | <a href="/torrents.php?oldal=4&tipus=all_own&mire=&miben=name"><strong>76-100</strong></a> | <a href="/torrents.php?oldal=5&tipus=all_own&mire=&miben=name"><strong>101-125</strong></a> | <a href="/torrents.php?oldal=6&tipus=all_own&mire=&miben=name"><strong>126-150</strong></a> | <a href="/torrents.php?oldal=7&tipus=all_own&mire=&miben=name"><strong>151-175</strong></a> | <a href="/torrents.php?oldal=8&tipus=all_own&mire=&miben=name"><strong>176-200</strong></a> | <a href="/torrents.php?oldal=9&tipus=all_own&mire=&miben=name"><strong>201-225</strong></a> | <a href="/torrents.php?oldal=10&tipus=all_own&mire=&miben=name"><strong>226-250</strong></a> | <a href="/torrents.php?oldal=10&tipus=all_own&mire=&miben=name"><strong> &raquo;</strong></a>  | <a href="/torrents.php?oldal=17&tipus=all_own&mire=&miben=name"><strong>Utolsó</strong></a></div>
+                        </div>
+                        <div class="fobox_lab"></div>
+                    </div>
+                        <center id="bottomad">
+                            <div class="banner" data-id="420" data-banner-id="408" data-zone-id="1,2,3,4"><iframe src="//html5.host.bannerflow.com/ad_708361_25.html?pid=282205&bid=2909" style="border:0;width:728px;height:90px;" scrolling="no" frameBorder="0"></iframe></div></center>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div id="div_body_space"></div>
+        </div>
+        <div id="footer_bg">
+            <div id="footer">
+                <div id="footer_left">
+                    <img class="footer_link" src="data:image/gif;base64,R0lGODlhDwAPAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAAPAA8AAAINlI+py+0Po5y02otnAQA7">                    	</div>
+                <div id="footer_center">nCore b3sv1735M
+                    | render: 44 ms | mem: 2 MB | load: 1.9 1.69 1.37</div>
+                <div id="footer_right"></div>
+            </div>
+        </div>
+        <script language="JavaScript" type="text/javascript" src="https://static.ncore.cc/static/js/ieupdate.js"></script>
+        <script type="text/javascript">
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-2914855-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
+        <script>
+		(function(w,d) {
+		w.hj = w.hj || function() { (w.hj.q=w.hj.q||[]).push(arguments); };
+		w._hjSettings = { hjid: 1197 };
+		var s = d.createElement('script');
+		s.src = '//insights.hotjar.com/static/client/insights.js';
+		d.getElementsByTagName('head')[0].appendChild(s);
+		}(window,document));
+		</script>
+</body>
+</html>
+    

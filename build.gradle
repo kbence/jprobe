@@ -6,25 +6,23 @@ repositories {
 }
 
 dependencies {
-    compile module('org.codehaus.groovy:groovy-all:2.4.1')
+    compile 'org.codehaus.groovy:groovy-all:2.4.1'
+    compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.+'
+    compile 'org.spockframework:spock-core:0.7-groovy-2.0'
 }
 
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+
+version = '0.0.1'
 mainClassName = 'jprobe.JProbe'
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
 
-task fatJar(type: Jar) {
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-
-    baseName = project.name + '-all'
-
-    manifest {
-        attributes 'Implementation-Title': 'JProbe',
-                'Implementation-Version': '0.0.1',
-                'Main-Class': 'jprobe.JProbe'
-    }
+task zip(type: Zip, dependsOn: [tasks['installDist']]) {
+    from "${project.buildDir}/install"
+    into ""
 }
 
