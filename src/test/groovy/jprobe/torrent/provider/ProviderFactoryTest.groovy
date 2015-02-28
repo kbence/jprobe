@@ -14,14 +14,20 @@
  *  0. You just DO WHAT THE FUCK YOU WANT TO.
  */
 
-package jprobe.torrent
+package jprobe.torrent.provider
 
-class Torrent {
-    def name
-    def torrentUrl
+import jprobe.torrent.provider.ncore.NCoreProvider
+import spock.lang.Specification
 
-    @Override
-    String toString() {
-        return "$name <$torrentUrl>"
+class ProviderFactoryTest extends Specification {
+    def "Create"() {
+        setup:
+        def factory = new ProviderFactory()
+
+        when:
+        def provider = factory.create("ncore", new ConfigObject())
+
+        then:
+        provider instanceof NCoreProvider
     }
 }

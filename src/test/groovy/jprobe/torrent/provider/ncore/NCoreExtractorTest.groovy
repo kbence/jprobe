@@ -19,9 +19,6 @@ package jprobe.torrent.provider.ncore
 import groovy.util.slurpersupport.GPathResult
 import groovy.util.slurpersupport.NodeChild
 import org.cyberneko.html.parsers.SAXParser
-import org.xml.sax.ErrorHandler
-import org.xml.sax.SAXException
-import org.xml.sax.SAXParseException
 import spock.lang.Specification
 
 class NCoreExtractorTest extends Specification {

@@ -28,6 +28,8 @@ class NCoreProvider extends AbstractProvider {
     private String username
     private String password
 
+    private NCoreExtractor extractor = new NCoreExtractor()
+
     public NCoreProvider(ConfigObject config) {
         username = config.username
         password = config.password
@@ -35,6 +37,8 @@ class NCoreProvider extends AbstractProvider {
 
     @Override
     public List<Torrent> search(String keyword) {
+        List<Torrent> torrents = []
+
         try {
             ensureLoggedIn()
 
@@ -43,13 +47,13 @@ class NCoreProvider extends AbstractProvider {
                          tipus: 'all_own']
 
             get(path: '/torrents.php', query: query) { HttpResponseDecorator resp, NodeChild html ->
-                extractTorrents(html)
+                torrents = extractor.extract(html)
             }
         } catch (HttpResponseException e) {
             e.printStackTrace()
         }
 
-        return []
+        return torrents
     }
 
     private void ensureLoggedIn() {
@@ -61,13 +65,8 @@ class NCoreProvider extends AbstractProvider {
                     set_lang : 'en'
             ]
 
-            post(path: '/login.php', body: body) { HttpResponseDecorator resp, html ->
-            }
+            post(path: '/login.php', body: body) { HttpResponseDecorator resp, html -> }
         }
-    }
-
-    private Torrent extractTorrents(NodeChild html) {
-        new Torrent()
     }
 
     @Override

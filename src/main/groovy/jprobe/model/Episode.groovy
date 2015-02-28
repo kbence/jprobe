@@ -14,14 +14,14 @@
  *  0. You just DO WHAT THE FUCK YOU WANT TO.
  */
 
-package jprobe.torrent
+package jprobe.model
 
-class Torrent {
-    def name
-    def torrentUrl
+class Episode {
+    def int season
+    def int episode
 
-    @Override
-    String toString() {
-        return "$name <$torrentUrl>"
+    Episode(int season, int episode) {
+        this.season = season
+        this.episode = episode
     }
 }

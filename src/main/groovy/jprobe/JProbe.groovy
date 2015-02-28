@@ -16,23 +16,28 @@
 
 package jprobe
 
-import jprobe.torrent.provider.ncore.NCoreProvider
+import groovy.util.logging.Slf4j
+import jprobe.model.Episode
+import jprobe.model.Show
+import jprobe.torrent.EpisodeFinder
+import jprobe.torrent.provider.ProviderFactory
 
-import java.util.logging.Logger
-
+@Slf4j
 class JProbe {
-    private static Logger logger = Logger.getLogger(JProbe.class.name)
-
-    public static void main(String[] args) {
-        def probe = new JProbe()
-        probe.run()
-    }
+    def providerFactory = new ProviderFactory()
+    def episodeFinder = new EpisodeFinder()
 
     public void run() {
+        log.info("JProbe is starting up...")
+
         if (config.containsKey("providers")) {
-            if (config.providers.containsKey("ncore")) {
-                new NCoreProvider((ConfigObject) config.providers.ncore).search("something")
-            }
+            log.info("Searching for providers in config")
+
+           config.providers.each { String name, ConfigObject config ->
+               log.info("Adding provider '$name'")
+
+               episodeFinder.addProvider(providerFactory.create(name, config))
+           }
         }
     }
 
@@ -44,5 +49,10 @@ class JProbe {
         }
 
         new ConfigObject()
+    }
+
+    public static void main(String[] args) {
+        def probe = new JProbe()
+        probe.run()
     }
 }

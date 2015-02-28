@@ -14,14 +14,15 @@
  *  0. You just DO WHAT THE FUCK YOU WANT TO.
  */
 
-package jprobe.torrent
+package jprobe.torrent.provider
 
-class Torrent {
-    def name
-    def torrentUrl
+import jprobe.torrent.provider.ncore.NCoreProvider
 
-    @Override
-    String toString() {
-        return "$name <$torrentUrl>"
+class ProviderFactory {
+    def Provider create(String name, ConfigObject config) {
+        switch (name) {
+            case 'ncore':
+                return new NCoreProvider(config)
+        }
     }
 }
