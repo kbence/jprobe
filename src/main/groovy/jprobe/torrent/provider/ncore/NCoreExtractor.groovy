@@ -21,12 +21,9 @@ import jprobe.torrent.Torrent
 
 class NCoreExtractor {
     public List<Torrent> extract(NodeChild html) {
-        List<Torrent> hits = new LinkedList<>()
-
         html.'**'.findAll {
             it.@class.toString().split('\\s+').contains('box_torrent')
         }.collect { NodeChild node ->
-            node
             def hit = new Torrent()
             def torrentId = extractId((String)(node.'**'.find {
                     it.@href.text().contains('&id=')
